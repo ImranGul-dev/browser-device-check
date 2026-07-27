@@ -1,0 +1,92 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Breadcrumbs from '@/components/Breadcrumbs.astro';
+import { siteConfig } from '@/config/site';
+import { buildSimplePageSchema } from '@/lib/schema';
+
+const description = `Read ${siteConfig.name}’s accessibility goals, device-test limitations, testing approach, known issues, and feedback options.`;
+const jsonLd = buildSimplePageSchema({
+  type: 'WebPage',
+  name: 'Accessibility Statement',
+  path: '/accessibility/',
+  description,
+  includePublisher: false,
+});
+---
+
+<BaseLayout title="Accessibility Statement" description={description} canonicalPath="/accessibility/" jsonLd={jsonLd}>
+  <Breadcrumbs items={[{ label: 'Accessibility Statement' }]} />
+  <article class="section-sm article-container prose">
+    <h1>Accessibility Statement</h1>
+    <p class="muted">Last reviewed: {siteConfig.reviewedDate}</p>
+    <p class="lead">
+      {siteConfig.name} aims to make its website and device-testing tools usable by people with
+      different abilities, devices, input methods, and assistive technologies. The design target is
+      WCAG 2.2 Level AA. This is an ongoing target, not a claim that every page has completed a formal
+      third-party accessibility audit.
+    </p>
+
+    <h2>Measures we aim to provide</h2>
+    <ul>
+      <li>Clear headings, page landmarks, and a skip-to-content link.</li>
+      <li>Keyboard-operable navigation and visible focus.</li>
+      <li>Descriptive button labels, form labels, instructions, and error guidance.</li>
+      <li>Sufficient contrast and content that reflows at narrow widths and 200% zoom.</li>
+      <li>Reduced-motion support.</li>
+      <li>Status messages that can be announced by assistive technology.</li>
+      <li>Result states that do not depend on color alone.</li>
+      <li>Large, appropriately spaced targets and clear Start, Stop, Reset, Retry, Skip, Back, and Exit controls.</li>
+      <li>No advertisements inside interactive test surfaces.</li>
+    </ul>
+
+    <h2>Interactive-test limitations</h2>
+    <p>
+      Some tests evaluate a particular sense, device, or input method and cannot provide a fully
+      equivalent result through another method.
+    </p>
+    <table>
+      <thead><tr><th>Test</th><th>Accessibility approach and limitation</th></tr></thead>
+      <tbody>
+        <tr><td>Webcam</td><td>Textual active, stopped, selected-device, settings, warning, and error states. Framing and preview review remain visual.</td></tr>
+        <tr><td>Microphone</td><td>Text states for detected, silent, low, clipping, and possible background activity. Continuous meter updates are not announced.</td></tr>
+        <tr><td>Speaker</td><td>Playback status, Stop Sound, expected-audio text, and Not sure. Hearing or another person's confirmation is required.</td></tr>
+        <tr><td>Keyboard</td><td>Capture is limited to the active area, Tab remains normal navigation, Escape and a visible Exit control stop the test.</td></tr>
+        <tr><td>Mouse</td><td>All page controls remain keyboard operable. Dragging is never required for navigation or exit.</td></tr>
+        <tr><td>Touchscreen</td><td>Surrounding controls work with other input methods. The coverage diagnostic itself requires touch hardware.</td></tr>
+        <tr><td>Dead Pixel</td><td>Visible Exit Full Screen, keyboard instructions, Pause Movement, reduced-motion support, and a final user-confirmed result. Inspection remains visual.</td></tr>
+        <tr><td>Device Check</td><td>Current step, permission explanations, Back, Retry, Skip, Stop, End, and categorical results.</td></tr>
+      </tbody>
+    </table>
+
+    <h2>Third-party components</h2>
+    <p>
+      The Contact page uses FormSubmit. Its external submission and spam-protection experience may
+      vary. Advertising, analytics, and a site-wide consent platform are disabled at launch. Any future
+      third-party component must not cover focused controls, block results, obscure exit buttons,
+      create keyboard traps, or look like test controls.
+    </p>
+
+    <h2>Testing approach</h2>
+    <ul>
+      <li>Keyboard-only navigation.</li>
+      <li>Current desktop and mobile browsers.</li>
+      <li>Browser zoom at 200 percent and narrow-viewport reflow.</li>
+      <li>Reduced-motion preferences.</li>
+      <li>Screen-reader-friendly HTML and visible focus.</li>
+      <li>High-contrast and color-independent states.</li>
+      <li>Touch interaction on representative mobile devices.</li>
+      <li>Automated axe-core checks and manual review.</li>
+    </ul>
+
+    <h2>Feedback</h2>
+    <p>
+      If you experience an accessibility barrier, share the page address, what you were trying to do,
+      what happened, your browser, operating system, and assistive technology if you are comfortable
+      sharing it. You do not need to disclose a disability or medical condition.
+    </p>
+    <p>
+      Accessibility email: <a href={`mailto:${siteConfig.accessibilityEmail}`}>{siteConfig.accessibilityEmail}</a>.<br />
+      Response target: {siteConfig.responseTime}.
+    </p>
+  </article>
+</BaseLayout>

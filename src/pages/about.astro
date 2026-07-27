@@ -1,0 +1,109 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Breadcrumbs from '@/components/Breadcrumbs.astro';
+import RelatedLinks from '@/components/RelatedLinks.astro';
+import { siteConfig } from '@/config/site';
+import { buildSimplePageSchema } from '@/lib/schema';
+
+const description = `Learn how ${siteConfig.name} provides browser device tests, explains limitations, reviews technical content, protects test media, and handles corrections.`;
+const jsonLd = buildSimplePageSchema({
+  type: 'AboutPage',
+  name: `About ${siteConfig.name}`,
+  path: '/about/',
+  description,
+  includePublisher: true,
+});
+---
+
+<BaseLayout
+  title={`About ${siteConfig.name} and How the Device Tests Work`}
+  description={description}
+  canonicalPath="/about/"
+  jsonLd={jsonLd}
+>
+  <Breadcrumbs items={[{ label: 'About' }]} />
+  <article class="section-sm article-container prose">
+    <h1>About {siteConfig.name}</h1>
+    <p class="lead">
+      {siteConfig.name} provides free browser-based tests for cameras, microphones, speakers,
+      keyboards, mice, touchscreens, displays, refresh timing, browser capabilities, game controllers,
+      and pre-call readiness. Each tool explains what the browser observed, what the result does not
+      prove, and what to try next.
+    </p>
+
+    <h2>Why the website exists</h2>
+    <p>
+      Device problems often appear immediately before a meeting, interview, exam, class, telehealth
+      appointment, webinar, or client call. A camera can be detected but show a black image. A
+      microphone can appear in a list but remain silent. A speaker can work on one side. A key can
+      repeat unexpectedly. A wheel can jump. A touchscreen can miss part of a gesture. This website
+      helps visitors investigate these problems before the device is urgently needed.
+    </p>
+
+    <h2>How the tests work</h2>
+    <p>
+      The tests use browser features available on the visitor's device. Depending on the tool, the
+      browser may display a local camera preview, analyze relative microphone activity, play generated
+      speaker sounds, receive key or pointer events, show touchscreen coordinates, display screen-test
+      colors and patterns, or report browser feature availability.
+    </p>
+
+    <h2>Privacy-first test design</h2>
+    <ul>
+      <li>Camera video is not uploaded or stored by the testing tools.</li>
+      <li>Microphone audio is not uploaded or saved.</li>
+      <li>Keyboard activity is not uploaded or saved by the keyboard tool.</li>
+      <li>Mouse and touch interactions remain within the current test session.</li>
+      <li>The Dead Pixel Test does not capture the screen.</li>
+      <li>Screen-sharing content is not previewed, recorded, or uploaded by the Device Check.</li>
+      <li>No account is required.</li>
+    </ul>
+    <p>
+      This local processing is separate from hosting and the FormSubmit contact service. Advertising,
+      analytics, and a site-wide consent platform are disabled at launch.
+    </p>
+
+    <h2>What the tests can and cannot confirm</h2>
+    <ul>
+      <li>The speaker test requires the visitor to confirm what was heard.</li>
+      <li>The Dead Pixel Test is a visual inspection aid and cannot automatically see physical damage.</li>
+      <li>The mouse test does not claim exact hardware DPI or polling rate.</li>
+      <li>Browser event timing and video settings are not professional hardware measurements.</li>
+      <li>A passed browser test does not guarantee identical behavior in every third-party application.</li>
+    </ul>
+
+    <h2>Content and corrections</h2>
+    <p>
+      Technical claims are reviewed against browser documentation, operating-system guidance, and
+      official platform support information. A Last reviewed date changes only after a genuine review.
+      Visitors can report an inaccurate step, accessibility barrier, privacy question, or test problem
+      through the Contact page.
+    </p>
+
+    <h2>How the website may be funded</h2>
+    <p>
+      The site may later display carefully separated Google AdSense advertising to support hosting,
+      development, browser testing, content maintenance, accessibility improvements, security, and
+      technical review. Advertising does not determine test results or editorial recommendations.
+      Advertising is disabled at launch.
+    </p>
+
+    <h2>Publisher</h2>
+    <p>
+      Publisher: {siteConfig.publisherName}<br />
+      Support: <a href={`mailto:${siteConfig.supportEmail}`}>{siteConfig.supportEmail}</a><br />
+      Last reviewed: {siteConfig.reviewedDate}
+    </p>
+
+    <h2>Related links</h2>
+    <RelatedLinks
+      links={[
+        { title: 'Run Complete Device Check', href: '/device-check/' },
+        { title: 'View all device tests', href: '/' },
+        { title: 'Read the Privacy Policy', href: '/privacy-policy/' },
+        { title: 'Read the Accessibility Statement', href: '/accessibility/' },
+        { title: 'Report a correction', href: '/contact/' },
+      ]}
+    />
+  </article>
+</BaseLayout>

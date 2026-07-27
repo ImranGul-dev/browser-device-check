@@ -1,0 +1,41 @@
+---
+import BaseLayout from './BaseLayout.astro';
+import Breadcrumbs from '@/components/Breadcrumbs.astro';
+import PrivacyNotice from '@/components/PrivacyNotice.astro';
+import FaqList from '@/components/FaqList.astro';
+import RelatedLinks from '@/components/RelatedLinks.astro';
+import AdSlot from '@/components/AdSlot.astro';
+import { buildToolSchema } from '@/lib/schema';
+
+interface Item { title: string; body: string; }
+interface Faq { question: string; answer: string; }
+interface Link { title: string; href: string; }
+interface Props {
+  title: string; seoTitle: string; description: string; path: string; intro: string; privacy: string;
+  instructions: string[]; interpretations: Item[]; troubleshooting: Item[]; limitations: string[]; faqs: Faq[]; related: Link[];
+  adPlacement?: string;
+  instructionHeading?: string;
+  resultHeading?: string;
+  troubleshootingHeading?: string;
+  limitationsHeading?: string;
+}
+const props = Astro.props;
+const instructionHeading = props.instructionHeading || `How to use the ${props.title.toLowerCase()}`;
+const resultHeading = props.resultHeading || 'Understand your result';
+const troubleshootingHeading = props.troubleshootingHeading || 'Troubleshoot a problem';
+const limitationsHeading = props.limitationsHeading || 'Privacy and technical limitations';
+const jsonLd = buildToolSchema({ name: props.title, path: props.path, description: props.description, featureList: props.instructions });
+---
+<BaseLayout title={props.seoTitle} description={props.description} canonicalPath={props.path} jsonLd={jsonLd} ogImageAlt={`${props.title} browser device test interface`} >
+  <Breadcrumbs items={[{ label: props.title }]} />
+  <section class="section-sm tool-container">
+    <p class="eyebrow">Free browser device test</p><h1>{props.title}</h1><p class="lead">{props.intro}</p>
+    <PrivacyNotice><strong>Privacy:</strong> {props.privacy}</PrivacyNotice>
+    <slot name="tool" />
+  </section>
+  <section class="section-alt"><div class="article-container prose"><h2>{instructionHeading}</h2><ol>{props.instructions.map((item) => <li>{item}</li>)}</ol></div></section>
+  <section class="section"><div class="article-container prose"><h2>{resultHeading}</h2>{props.interpretations.map((item) => <section><h3>{item.title}</h3><p>{item.body}</p></section>)}</div></section>
+  <AdSlot placement={props.adPlacement || props.path} />
+  <section class="section-alt"><div class="article-container prose"><h2>{troubleshootingHeading}</h2>{props.troubleshooting.map((item) => <section><h3>{item.title}</h3><p>{item.body}</p></section>)}</div></section>
+  <section class="section"><div class="article-container prose"><h2>{limitationsHeading}</h2><ul>{props.limitations.map((item) => <li>{item}</li>)}</ul><h2>Frequently asked questions</h2><FaqList faqs={props.faqs} /><h2>Related tools and guides</h2><RelatedLinks links={props.related} /></div></section>
+</BaseLayout>

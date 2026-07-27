@@ -1,0 +1,41 @@
+---
+import ToolPageLayout from '@/layouts/ToolPageLayout.astro';
+import MicrophoneTest from '@/components/tools/MicrophoneTest';
+---
+<ToolPageLayout
+  title="Test Your Microphone Online"
+  seoTitle="Microphone Test - Check Audio Input Online"
+  description="Test microphone activity, view a live level and waveform, and check for silence, low input, possible noise, or clipping in your browser."
+  instructionHeading="How to use the microphone test"
+  resultHeading="Understand your microphone result"
+  troubleshootingHeading="Troubleshoot a microphone problem"
+  limitationsHeading="Privacy and technical limitations"
+  path="/microphone-test/"
+  intro="Speak in a normal voice to check whether the browser receives microphone activity. Review relative input level, waveform behavior, silence, possible background activity, clipping, and device selection where available."
+  privacy="Microphone audio is analyzed in this browser and is not uploaded or saved. For optional local playback, up to three seconds may be held briefly in volatile memory and is discarded after playback or when the test stops."
+  instructions={["Select Start Microphone Test.","Read the permission explanation, then select Allow Microphone.","Choose the intended input if multiple labels are available.","Speak in a normal call voice for several seconds.","Review the relative level, waveform, and text result.","Stop the microphone when finished and retry after any change."]}
+  interpretations={[
+    { title: 'Microphone activity detected', body: 'The browser received changing audio input while you spoke. This confirms input during the session, not calibrated sound quality.' },
+    { title: 'Low input or silence', body: 'The relative signal stayed low. Check mute, input selection, operating-system gain, distance, cable, Bluetooth routing, and competing applications.' },
+    { title: 'Possible clipping', body: 'The digital signal approached its upper range repeatedly. Move farther from the microphone or reduce input gain.' },
+    { title: 'Possible background activity', body: 'The browser received continuing low-level activity, but the test cannot reliably identify the source.' },
+  ]}
+  troubleshooting={[
+    { title: 'Permission is blocked', body: 'Reset the saved microphone permission from the browser site controls, reload, and start the test again.' },
+    { title: 'The microphone is detected but silent', body: 'Check physical mute, operating-system input level, the selected device, cable or adapter, Bluetooth call mode, and whether another application is using the input.' },
+    { title: 'Input is very quiet', body: 'Move closer, speak toward the correct microphone opening, raise input gain carefully, and disable unsuitable automatic processing in the calling app.' },
+    { title: 'The signal clips or distorts', body: 'Reduce gain, move farther away, lower headset boom sensitivity, and avoid speaking directly into the capsule.' },
+    { title: 'It works here but not in another app', body: 'Choose the same microphone inside the application, verify its operating-system permission, and use its official audio preview.' },
+  ]}
+  limitations={["The meter and waveform use relative digital values, not calibrated decibels or professional acoustic measurements.","The tool cannot identify the exact source of background activity.","Browser processing such as echo cancellation and noise suppression may affect the signal.","Device labels can be hidden before permission is granted.","A passed browser test does not guarantee that another application selects the same input."]}
+  faqs={[
+    { question: 'Does the test save what I say?', answer: 'No. Audio is not uploaded or saved. If you use local playback, up to three seconds is held briefly in volatile memory and discarded after playback or when the test stops.' },
+    { question: 'Why is the microphone detected but silent?', answer: 'It may be muted, set very low, incorrectly selected, blocked by the operating system, used by another application, or connected through a faulty cable or adapter.' },
+    { question: 'What does clipping mean?', answer: 'The browser’s digital signal repeatedly approached its upper range. Move away or reduce input gain.' },
+    { question: 'Can the test identify a background-noise source?', answer: 'No. It can observe continuing activity during a quiet period but cannot identify the cause reliably.' },
+    { question: 'Why does Bluetooth work for music but not calls?', answer: 'Call input, routing, connection mode, battery, and application settings can differ from ordinary music playback.' },
+  ]}
+  related={[{ title: 'Run Complete Device Check', href: '/device-check/' },{ title: 'Test your webcam', href: '/webcam-test/' },{ title: 'Test your speakers', href: '/speaker-test/' },{ title: 'Fix camera and microphone permissions', href: '/guides/camera-microphone-permissions/' },{ title: 'Troubleshoot a microphone', href: '/guides/microphone-not-working/' }]}
+>
+  <MicrophoneTest client:load slot="tool" />
+</ToolPageLayout>

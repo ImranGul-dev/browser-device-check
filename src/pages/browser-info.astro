@@ -1,0 +1,35 @@
+---
+import ToolPageLayout from '@/layouts/ToolPageLayout.astro';
+import BrowserInfoTest from '@/components/tools/BrowserInfoTest';
+---
+<ToolPageLayout
+  title="Browser Information Test"
+  seoTitle="Browser Information Test - Check Version and Feature Support"
+  description="Check approximate browser information, secure-context status, viewport size, and support for camera, microphone, screen sharing, fullscreen, touch, audio, and gamepads."
+  path="/browser-info/"
+  intro="Generate a local report showing browser-reported identity information and the feature support most relevant to the device-testing tools."
+  privacy="The report is generated locally and is not transmitted or stored by this tool."
+  instructions={["Select Check Browser Information.","Review the approximate browser and platform labels.","Confirm whether the page is running in a secure context.","Review the current viewport dimensions.","Check feature availability for media, screen sharing, fullscreen, pointer, touch, audio, gamepad, and visual viewport APIs.","Use the individual device test to confirm actual permission and behavior."]}
+  interpretations={[
+    { title: 'Approximate browser label', body: 'The label is inferred from browser-provided identification strings and may be reduced, modified, or shared by Chromium-based browsers.' },
+    { title: 'Secure context', body: 'Camera, microphone, and screen-sharing features normally require HTTPS or localhost. A secure context does not automatically grant permission.' },
+    { title: 'Feature available', body: 'The relevant JavaScript interface exists. Availability does not prove that hardware is connected or that permission will be allowed.' },
+    { title: 'Feature unavailable', body: 'The browser did not expose the checked interface. Try a current browser and a secure page before concluding the device is unsupported.' },
+  ]}
+  troubleshooting={[
+    { title: 'Camera or microphone API is unavailable', body: 'Use HTTPS or localhost, update the browser, leave private or restricted embedded contexts, and verify organization policies.' },
+    { title: 'The browser name looks approximate', body: 'Modern browsers reduce or standardize identifying strings. Use feature support and official browser settings for a more dependable check.' },
+    { title: 'Touch is unavailable on a touch device', body: 'Browser reporting can differ by hardware, remote desktop, emulation, or operating-system settings. Run the dedicated touchscreen test.' },
+    { title: 'A feature is available but the tool still fails', body: 'Permission, device connection, operating-system privacy settings, another application, or browser policy can still block actual use.' },
+  ]}
+  limitations={["User-agent identification is approximate and should not be used as the sole compatibility decision.","Feature availability does not confirm permission, connected hardware, or successful operation.","Some browsers intentionally reduce platform and version information for privacy.","Embedded pages, organization policy, secure-context rules, and operating-system settings can change feature behavior.","The report does not upload, fingerprint, or persist browser information in the provided implementation."]}
+  faqs={[
+    { question: 'Why does the page say my browser name is approximate?', answer: 'Browser identification strings are not a guaranteed identity API and can be reduced or shared across related browsers.' },
+    { question: 'Does Available mean my camera will work?', answer: 'No. It means the browser interface exists. The webcam test must still request permission and start a real local stream.' },
+    { question: 'Why does localhost count as secure?', answer: 'Browsers commonly treat localhost as a trustworthy development context so secure browser APIs can be tested locally.' },
+    { question: 'Is this information uploaded?', answer: 'No. The provided tool generates and displays the report inside the current browser session.' },
+  ]}
+  related={[{ title: 'Run Complete Device Check', href: '/device-check/' },{ title: 'Test your webcam', href: '/webcam-test/' },{ title: 'Test your controller', href: '/gamepad-test/' }]}
+>
+  <BrowserInfoTest client:load slot="tool" />
+</ToolPageLayout>

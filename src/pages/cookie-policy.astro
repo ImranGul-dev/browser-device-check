@@ -1,0 +1,103 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Breadcrumbs from '@/components/Breadcrumbs.astro';
+import PrivacyNotice from '@/components/PrivacyNotice.astro';
+import { siteConfig } from '@/config/site';
+import { buildSimplePageSchema } from '@/lib/schema';
+
+const description = `Learn how ${siteConfig.name}, its contact provider, future consent platform, analytics providers, and Google AdSense may use cookies, browser storage, and identifiers.`;
+const jsonLd = buildSimplePageSchema({
+  type: 'WebPage',
+  name: 'Cookie Policy',
+  path: '/cookie-policy/',
+  description,
+  includePublisher: false,
+});
+---
+
+<BaseLayout title="Cookie Policy" description={description} canonicalPath="/cookie-policy/" jsonLd={jsonLd}>
+  <Breadcrumbs items={[{ label: 'Cookie Policy' }]} />
+  <article class="section-sm article-container prose">
+    <h1>Cookie Policy</h1>
+    <p class="muted">Last updated: {siteConfig.updatedDate}</p>
+    <PrivacyNotice>
+      <strong>Launch configuration:</strong> Advertising, analytics, and the site-wide consent platform
+      are disabled. The core device tests do not require cookies or persistent result storage. The
+      external FormSubmit contact flow may use security or anti-spam technology when a message is sent.
+    </PrivacyNotice>
+
+    <p>
+      This policy explains cookies and similar browser storage that may be used when visiting
+      {siteConfig.name}. It will be updated if advertising, analytics, or a consent platform is enabled.
+    </p>
+
+    <h2>1. What cookies and similar storage are</h2>
+    <p>
+      Cookies are small values stored by a browser and sent with relevant requests. Similar
+      technologies include local storage, session storage, IndexedDB, caches, and provider identifiers.
+      Browser permission decisions are separate from cookies, although a browser may remember them.
+    </p>
+
+    <h2>2. Core device tests</h2>
+    <p>
+      The core tests use in-memory JavaScript state. They do not require an account, server session,
+      database, cloud history, or persistent result storage. Reloading or closing the page clears the
+      current test results.
+    </p>
+
+    <h2>3. Hosting and security</h2>
+    <p>
+      A static host, content-delivery network, or security provider may process requests and may use
+      essential technical storage when necessary to deliver and protect the website. Actual behavior
+      depends on the hosting configuration.
+    </p>
+
+    <h2>4. Contact form and spam protection</h2>
+    <p>
+      The Contact page sends submissions to FormSubmit. FormSubmit may use cookies, identifiers, or
+      anti-spam services, including a human-verification step, when a form is submitted. These services
+      are separate from the browser-local device tests and apply only to the contact workflow.
+    </p>
+
+    <h2>5. Consent preferences</h2>
+    <p>
+      A site-wide consent platform is disabled at launch because advertising and analytics are also
+      disabled. If either is enabled later, a suitable consent platform may store the visitor's choices.
+      A visible Privacy Choices control will then reopen that interface.
+    </p>
+
+    <h2>6. Advertising storage</h2>
+    <p>
+      Google AdSense and advertising vendors may use cookies or similar identifiers depending on
+      region, consent, ad mode, browser settings, and provider policy. Advertising is disabled at launch.
+      It will not be enabled without updated disclosures, required consent configuration, and a real
+      AdSense publisher ID.
+    </p>
+
+    <h2>7. Analytics storage</h2>
+    <p>
+      Analytics is disabled at launch. If enabled later, the provider, purposes, storage names,
+      retention, and consent requirements will be documented. Media, key contents, pointer or touch
+      coordinates, contact content, and detailed diagnostic summaries will not be sent to analytics.
+    </p>
+
+    <h2>8. Current configuration</h2>
+    <table>
+      <thead><tr><th>Category</th><th>Launch state</th><th>Purpose</th></tr></thead>
+      <tbody>
+        <tr><td>Core device tests</td><td>No persistent storage required</td><td>Temporary browser-local diagnostics</td></tr>
+        <tr><td>Contact form</td><td>Enabled through FormSubmit</td><td>Message delivery and spam prevention</td></tr>
+        <tr><td>Advertising</td><td>Disabled</td><td>Not active at launch</td></tr>
+        <tr><td>Analytics</td><td>Disabled</td><td>Not active at launch</td></tr>
+        <tr><td>Consent platform</td><td>Disabled</td><td>Enable only when needed for configured services</td></tr>
+      </tbody>
+    </table>
+
+    <h2>9. Managing browser storage</h2>
+    <p>
+      You can use browser settings to inspect, block, or delete cookies and storage. Blocking
+      nonessential storage must not prevent the device-testing tools from working. Clearing site data
+      may also reset saved permissions or provider choices.
+    </p>
+  </article>
+</BaseLayout>

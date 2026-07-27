@@ -1,0 +1,39 @@
+---
+import ToolPageLayout from '@/layouts/ToolPageLayout.astro';
+import KeyboardTest from '@/components/tools/KeyboardTest';
+---
+<ToolPageLayout
+  title="Online Keyboard Tester"
+  seoTitle="Keyboard Tester - Check Every Key Online"
+  description="Test keyboard keys with an interactive map, key history, multi-key checks, and warnings for possible held or repeated input."
+  instructionHeading="How to use the keyboard tester"
+  resultHeading="Understand your keyboard results"
+  troubleshootingHeading="Troubleshoot keyboard problems"
+  limitationsHeading="Privacy and technical limitations"
+  path="/keyboard-test/"
+  intro="Press keys to see which events reach the active browser test area. Review recent key history, supported simultaneous input, possible held keys, and rapid repeated input without creating a keyboard trap."
+  privacy="Key events are used only while the test is active and are not stored by this tool. Do not type sensitive information."
+  instructions={["Select Start Keyboard Test.","Focus the bounded test area and press ordinary keys.","Use Tab for normal page navigation; Tab is not captured by the test.","Use Escape or the visible Exit Keyboard Test button to stop capture.","Review tested keys, held-key state, repeats, and recent history.","Reset the session before testing a different keyboard."]}
+  interpretations={[
+    { title: 'Key event received', body: 'The active browser area received the key code. This confirms browser input during this session, not the electrical health of the keyboard.' },
+    { title: 'Possible held key', body: 'A key remained in the pressed state for an extended period. Release it, refocus the area, and compare after reconnecting the device.' },
+    { title: 'Rapid repeated input', body: 'Repeated keydown events were observed. Holding a key normally repeats, so compare whether events continue after release.' },
+  ]}
+  troubleshooting={[
+    { title: 'A key does not appear', body: 'Confirm the test area is active, try the key in a text editor, check layout and modifier state, reconnect the keyboard, and test another browser or device.' },
+    { title: 'A key appears twice', body: 'Clean the key safely, reduce repeat sensitivity in operating-system settings, disconnect macros or accessibility software, and compare with another keyboard.' },
+    { title: 'A key appears held down', body: 'Release the key, exit and restart the test, inspect for physical sticking, and disconnect any remapping or gaming utility.' },
+    { title: 'A shortcut does not appear', body: 'The browser or operating system may reserve it. This tool intentionally preserves Tab, Escape, and normal focus navigation.' },
+  ]}
+  limitations={["The browser may reserve function keys, shortcuts, media keys, power keys, and operating-system combinations.","The visual map covers common keyboard layouts and may not represent every regional or specialist keyboard.","Key repeat behavior is influenced by the operating system and browser.","The test does not store typed contents, but you should still avoid sensitive input.","A browser event cannot certify keyboard firmware or hardware circuitry."]}
+  faqs={[
+    { question: 'Does the site save what I type?', answer: 'No. Key events are used only in the active test and are not stored by the tool. Do not type sensitive information.' },
+    { question: 'Why does Tab move focus instead of lighting a key?', answer: 'Tab is deliberately preserved for accessible page navigation and to avoid a keyboard trap.' },
+    { question: 'Why does Escape exit the test?', answer: 'Escape provides a predictable recovery path from the active capture area.' },
+    { question: 'Why do some function or media keys not appear?', answer: 'The browser or operating system may reserve them or expose them inconsistently.' },
+    { question: 'Can this test prove keyboard rollover?', answer: 'It can show combinations the browser receives, but it does not certify hardware rollover specifications.' },
+  ]}
+  related={[{ title: 'Test your mouse', href: '/mouse-test/' },{ title: 'Test your touchscreen', href: '/touchscreen-test/' },{ title: 'Run Complete Device Check', href: '/device-check/' }]}
+>
+  <KeyboardTest client:load slot="tool" />
+</ToolPageLayout>

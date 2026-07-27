@@ -1,0 +1,120 @@
+---
+import Icon from './Icon.astro';
+import { siteConfig, tests } from '@/config/site';
+const path = Astro.url.pathname;
+const current = (href: string) => path === href;
+const sectionCurrent = (href: string) => path === href || (href !== '/' && path.startsWith(href));
+---
+<header class="site-header">
+  <div class="site-shell header-row">
+    <a class="brand" href="/" aria-label={`${siteConfig.name} home`}>
+      <svg class="brand-mark" viewBox="0 0 40 40" aria-hidden="true">
+        <rect width="40" height="40" rx="8" fill="#1D4ED8"></rect>
+        <rect x="8" y="9" width="24" height="16" rx="2.5" fill="none" stroke="white" stroke-width="2.5"></rect>
+        <path d="M15 31h10M20 25v6" stroke="white" stroke-width="2.5" stroke-linecap="round"></path>
+        <path d="m14 16 4 4 8-8" fill="none" stroke="#99F6E4" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"></path>
+      </svg>
+      <span>{siteConfig.name}</span>
+    </a>
+    <nav class="desktop-nav" aria-label="Primary navigation">
+      <div class="nav-dropdown" id="tests-menu">
+        <button class="nav-button" id="tests-menu-button" type="button" aria-haspopup="true" aria-expanded="false" aria-controls="tests-menu-panel">
+          Tests <span aria-hidden="true">⌄</span>
+        </button>
+        <div class="nav-dropdown__panel" id="tests-menu-panel" hidden>
+          {tests.map((test) => <a href={test.href} aria-current={current(test.href) ? 'page' : undefined}>{test.title}</a>)}
+        </div>
+      </div>
+      <a class="nav-link" href="/guides/" aria-current={sectionCurrent('/guides/') ? 'page' : undefined}>Guides</a>
+      <a class="nav-link" href="/about/" aria-current={current('/about/') ? 'page' : undefined}>About</a>
+      <a class="nav-link" href="/contact/" aria-current={current('/contact/') ? 'page' : undefined}>Contact</a>
+      <a class="btn btn-primary" href="/device-check/">Run Device Check</a>
+    </nav>
+    <button class="btn btn-secondary mobile-menu" id="mobile-menu-button" type="button" aria-expanded="false" aria-controls="mobile-nav">
+      <Icon name="menu" size={20} /><span>Menu</span>
+    </button>
+  </div>
+  <nav class="site-shell mobile-panel" id="mobile-nav" data-open="false" aria-label="Mobile navigation">
+    {tests.map((test) => <a href={test.href} aria-current={current(test.href) ? 'page' : undefined}>{test.title}</a>)}
+    <a href="/guides/" aria-current={sectionCurrent('/guides/') ? 'page' : undefined}>Guides</a>
+    <a href="/about/" aria-current={current('/about/') ? 'page' : undefined}>About</a>
+    <a href="/contact/" aria-current={current('/contact/') ? 'page' : undefined}>Contact</a>
+    <a href="/device-check/" aria-current={current('/device-check/') ? 'page' : undefined}>Run Device Check</a>
+  </nav>
+</header>
+<script>
+  const testsMenu = document.querySelector<HTMLElement>('#tests-menu');
+  const testsButton = document.querySelector<HTMLButtonElement>('#tests-menu-button');
+  const testsPanel = document.querySelector<HTMLElement>('#tests-menu-panel');
+
+  const closeTests = (restoreFocus = false) => {
+    testsButton?.setAttribute('aria-expanded', 'false');
+    if (testsPanel) testsPanel.hidden = true;
+    if (restoreFocus) testsButton?.focus();
+  };
+  const openTests = () => {
+    testsButton?.setAttribute('aria-expanded', 'true');
+    if (testsPanel) testsPanel.hidden = false;
+  };
+
+  testsButton?.addEventListener('click', () => {
+    const open = testsButton.getAttribute('aria-expanded') === 'true';
+    if (open) closeTests(); else openTests();
+  });
+  testsMenu?.addEventListener('keydown', (event) => {
+    const links = Array.from(testsPanel?.querySelectorAll<HTMLAnchorElement>('a') ?? []);
+    if (event.key === 'Escape') closeTests(true);
+    if (event.target === testsButton && event.key === 'ArrowDown') {
+      event.preventDefault();
+      openTests();
+      links[0]?.focus();
+    }
+    if (event.target === testsButton && event.key === 'ArrowUp') {
+      event.preventDefault();
+      openTests();
+      links.at(-1)?.focus();
+    }
+    const index = links.indexOf(event.target as HTMLAnchorElement);
+    if (index >= 0 && event.key === 'ArrowDown') {
+      event.preventDefault();
+      links[(index + 1) % links.length]?.focus();
+    }
+    if (index >= 0 && event.key === 'ArrowUp') {
+      event.preventDefault();
+      links[(index - 1 + links.length) % links.length]?.focus();
+    }
+  });
+  testsMenu?.addEventListener('focusout', (event) => {
+    if (!testsMenu.contains(event.relatedTarget as Node | null)) closeTests();
+  });
+  document.addEventListener('click', (event) => {
+    if (testsMenu && !testsMenu.contains(event.target as Node)) closeTests();
+  });
+
+  const mobileButton = document.querySelector<HTMLButtonElement>('#mobile-menu-button');
+  const mobilePanel = document.querySelector<HTMLElement>('#mobile-nav');
+  const setMobileOpen = (open: boolean, restoreFocus = false) => {
+    mobileButton?.setAttribute('aria-expanded', String(open));
+    mobilePanel?.setAttribute('data-open', String(open));
+    const label = mobileButton?.querySelector('span:last-child');
+    if (label) label.textContent = open ? 'Close menu' : 'Menu';
+    if (restoreFocus) mobileButton?.focus();
+  };
+  mobileButton?.addEventListener('click', () => {
+    setMobileOpen(mobileButton.getAttribute('aria-expanded') !== 'true');
+  });
+  document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape' && mobileButton?.getAttribute('aria-expanded') === 'true') {
+      setMobileOpen(false, true);
+    }
+  });
+  document.addEventListener('click', (event) => {
+    if (
+      mobileButton?.getAttribute('aria-expanded') === 'true' &&
+      !mobilePanel?.contains(event.target as Node) &&
+      !mobileButton.contains(event.target as Node)
+    ) {
+      setMobileOpen(false);
+    }
+  });
+</script>

@@ -1,0 +1,40 @@
+---
+import ToolPageLayout from '@/layouts/ToolPageLayout.astro';
+import WebcamTest from '@/components/tools/WebcamTest';
+---
+<ToolPageLayout
+  title="Test Your Webcam Online"
+  seoTitle="Webcam Test - Check Your Camera Online"
+  description="Preview your webcam, review browser-delivered video information, check basic lighting, and troubleshoot camera problems without uploading video."
+  instructionHeading="How to use the webcam test"
+  resultHeading="Understand your camera result"
+  troubleshootingHeading="Troubleshoot a camera problem"
+  limitationsHeading="Privacy and technical limitations"
+  path="/webcam-test/"
+  intro="Check whether your browser can access a camera and display a live preview before a meeting, interview, class, webinar, or remote appointment. The page reports browser-delivered settings and practical warnings; it does not grade professional image quality."
+  privacy="Your camera preview stays in this browser and is not uploaded or recorded by this test."
+  instructions={["Select Start Webcam Test.","Read the camera-permission explanation, then select Allow Camera.","Use the browser prompt to allow or block access.","Confirm that a live image appears and choose another camera when available.","Review the delivered video size, aspect ratio, activity, and approximate lighting message.","Stop the test when finished or retry after making a change."]}
+  interpretations={[
+    { title: 'Live preview confirmed', body: 'The browser received a camera stream and you confirmed that the image was visible and moving. This confirms browser access for the current session.' },
+    { title: 'Lighting warning', body: 'An approximate local brightness sample suggests the scene may be dark or very bright. It is not calibrated lighting analysis.' },
+    { title: 'Permission blocked or no device', body: 'The browser did not provide a usable camera stream. Reset the site permission, close competing applications, check a physical shutter, and retry.' },
+  ]}
+  troubleshooting={[
+    { title: 'Camera permission is blocked', body: 'Open the site-information control beside the address bar, change Camera to Allow or reset the saved decision, reload the page, and start the test again.' },
+    { title: 'The preview is black', body: 'Open any physical shutter or lens cover, increase front lighting, choose another camera, close other camera applications, and reconnect an external camera.' },
+    { title: 'The wrong camera is selected', body: 'Allow access so labels can appear, open the camera selector, and choose each available camera until the intended preview appears.' },
+    { title: 'The image is blurry, dark, or stretched', body: 'Clean the lens safely, remove protective film, improve front lighting, reduce strong backlighting, and check whether browser zoom or layout is stretching the preview.' },
+    { title: 'It works here but not in another app', body: 'Open that application’s video settings, select the same camera, check its operating-system permission, and use the platform’s official preview or test meeting.' },
+  ]}
+  limitations={["The browser must request camera access through a secure context and a user-controlled permission decision.","A live preview confirms browser access during this session; it does not certify the camera or guarantee identical behavior elsewhere.","Video width, height, aspect ratio, and frame rate describe the browser-delivered track, not professional quality.","Brightness is an approximate local observation, not calibrated analysis.","Device labels may be limited before permission is granted or by browser policy."]}
+  faqs={[
+    { question: 'Does the test record me?', answer: 'No. The implementation displays the local stream and does not upload, record, or store camera video.' },
+    { question: 'Why does the browser show only a generic camera name?', answer: 'Some browsers hide device labels until permission has been granted.' },
+    { question: 'Does a live preview guarantee that Zoom or Teams will work?', answer: 'No. Another application may select a different device, permission, or organization policy.' },
+    { question: 'Why is the image black even though the camera light is on?', answer: 'The lens may be covered, the scene may be dark, the wrong camera may be selected, or another application may have disrupted the stream.' },
+    { question: 'Can this test measure professional camera quality?', answer: 'No. It shows browser-delivered settings and practical warnings, not calibrated camera quality.' },
+  ]}
+  related={[{ title: 'Run Complete Device Check', href: '/device-check/' },{ title: 'Test your microphone', href: '/microphone-test/' },{ title: 'Test your speakers', href: '/speaker-test/' },{ title: 'Fix camera and microphone permissions', href: '/guides/camera-microphone-permissions/' },{ title: 'Troubleshoot a webcam', href: '/guides/webcam-not-working/' },{ title: 'Prepare for an online interview', href: '/guides/test-camera-microphone-before-interview/' }]}
+>
+  <WebcamTest client:load slot="tool" />
+</ToolPageLayout>

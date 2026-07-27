@@ -1,0 +1,38 @@
+---
+import ToolPageLayout from '@/layouts/ToolPageLayout.astro';
+import TouchscreenTest from '@/components/tools/TouchscreenTest';
+---
+<ToolPageLayout
+  title="Online Touchscreen Test"
+  seoTitle="Touchscreen Test - Check Coverage and Multi-Touch"
+  description="Trace a touch-coverage grid, display simultaneous touch points, and review missed areas or possible unexpected touch activity."
+  instructionHeading="How to use the touchscreen test"
+  resultHeading="Understand your touchscreen result"
+  troubleshootingHeading="Troubleshoot touchscreen problems"
+  limitationsHeading="Privacy and technical limitations"
+  path="/touchscreen-test/"
+  intro="Trace the coverage grid with a finger, review simultaneous touch pointers, and retry missed areas. Surrounding controls remain available through keyboard, mouse, or assistive technology."
+  privacy="Touch locations remain in this browser session and are not uploaded by this tool."
+  instructions={["Select Start Touchscreen Test.","Use a finger rather than a mouse or trackpad.","Trace slowly across each grid region.","Place more than one finger on the grid to check browser-received multi-touch pointers.","Review the text coverage summary and retry persistent missed areas.","Exit the test to restore ordinary touch behavior."]}
+  interpretations={[
+    { title: 'Coverage completed', body: 'Every grid region received at least one touch pointer in this session. This does not certify sensor calibration or rule out intermittent behavior.' },
+    { title: 'Coverage incomplete', body: 'One or more regions were not touched or did not deliver a pointer event. Retry slowly and compare whether the same area remains missed.' },
+    { title: 'Multiple touch points detected', body: 'The browser received simultaneous touch pointers. The count does not certify the manufacturer’s maximum specification.' },
+  ]}
+  troubleshooting={[
+    { title: 'A region remains unmarked', body: 'Clean and dry the screen, remove an unsuitable protector or case, rotate the device, retry slowly, and compare another application.' },
+    { title: 'Multi-touch does not appear', body: 'Confirm the device supports multi-touch, place fingers far enough apart, close gesture utilities, and test in another current browser.' },
+    { title: 'Unexpected touches appear', body: 'Remove moisture, disconnect charging accessories, clean the screen, remove pressure from the case, and compare while the device is unplugged.' },
+  ]}
+  limitations={["The coverage diagnostic requires touch hardware and cannot be completed with a mouse alone.","The tool does not disable scrolling for the entire document.","Covered cells are summarized in text rather than exposing every cell to assistive technology.","Browser pointer events do not certify sensor calibration, pressure sensitivity, or manufacturer specifications.","Unexpected-touch observations are approximate and may be affected by rapid legitimate gestures."]}
+  faqs={[
+    { question: 'Why does my mouse not fill the grid?', answer: 'The coverage test counts touch pointers so it can distinguish touchscreen behavior from ordinary mouse movement.' },
+    { question: 'Does the tool upload touch coordinates?', answer: 'No. Touch locations remain in the current browser session.' },
+    { question: 'Can it diagnose ghost touch?', answer: 'It can help you observe unexpected pointer bursts, but it cannot prove the hardware cause.' },
+    { question: 'Does full coverage mean the touchscreen is perfect?', answer: 'No. It only means each grid region received touch input during this session.' },
+    { question: 'Can I leave with a keyboard or mouse?', answer: 'Yes. Start, Exit, Reset, navigation, and related links remain ordinary controls.' },
+  ]}
+  related={[{ title: 'Test your mouse', href: '/mouse-test/' },{ title: 'Test your keyboard', href: '/keyboard-test/' },{ title: 'Inspect your screen', href: '/dead-pixel-test/' }]}
+>
+  <TouchscreenTest client:load slot="tool" />
+</ToolPageLayout>

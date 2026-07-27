@@ -1,0 +1,13 @@
+---
+import { siteConfig } from '@/config/site';
+interface Props { placement: string; }
+const { placement } = Astro.props;
+---
+{siteConfig.enableAds && siteConfig.adsensePublisherId ? (
+  <aside class="publisher-ad" data-enabled="true" aria-label="Advertisement" data-placement={placement}>
+    <div>
+      <div class="publisher-ad__label">Advertisement</div>
+      <p class="muted">Reserved responsive ad unit. Production AdSense code is intentionally not bundled.</p>
+    </div>
+  </aside>
+) : null}

@@ -1,0 +1,40 @@
+---
+import ToolPageLayout from '@/layouts/ToolPageLayout.astro';
+import MouseTest from '@/components/tools/MouseTest';
+---
+<ToolPageLayout
+  title="Online Mouse Test"
+  seoTitle="Mouse Test - Check Buttons, Double Click and Scroll"
+  description="Test mouse buttons, double-click behavior, pointer movement, dragging, supported side buttons, and scroll-wheel activity."
+  instructionHeading="How to use the mouse test"
+  resultHeading="Understand your mouse results"
+  troubleshootingHeading="Troubleshoot mouse problems"
+  limitationsHeading="Privacy and technical limitations"
+  path="/mouse-test/"
+  intro="Use one bounded target to check button events, double clicks, movement, dragging, side buttons, and wheel direction. The tool summarizes troubleshooting-relevant behavior without claiming exact hardware DPI or polling rate."
+  privacy="Pointer and wheel activity is processed in this browser and is not stored by this tool."
+  instructions={["Select Start Mouse Test.","Move the pointer inside the blue target.","Try left, middle, right, back, and forward buttons when available.","Double-click inside the target and scroll in both directions.","Drag the circular target, then release it.","Exit or reset the test when finished."]}
+  interpretations={[
+    { title: 'Button event received', body: 'The browser received a button event inside the active target. Side-button support varies by device and browser.' },
+    { title: 'Double-click received', body: 'The browser generated a double-click event within its timing threshold.' },
+    { title: 'Wheel direction received', body: 'The browser received upward or downward wheel movement. Trackpads and smooth wheels can generate many small events.' },
+    { title: 'Drag completed', body: 'The pointer was held and moved while captured by the target.' },
+  ]}
+  troubleshooting={[
+    { title: 'A button is not detected', body: 'Test inside the active target, check button remapping software, reconnect the device, change USB ports, and compare with another application.' },
+    { title: 'Double-clicks are inconsistent', body: 'Adjust the operating-system double-click speed, test a slower rhythm, clean the button safely, and compare another mouse.' },
+    { title: 'The wheel jumps or reverses', body: 'Clean the wheel according to manufacturer guidance, test without extension software, change the scrolling direction setting, and compare another device.' },
+    { title: 'Movement feels delayed', body: 'Close heavy tabs, check Bluetooth battery and interference, test a wired connection, and avoid interpreting browser event counts as hardware polling rate.' },
+  ]}
+  limitations={["The page does not measure exact hardware DPI or polling rate.","Browser event timing is influenced by rendering load, operating-system settings, zoom, and input processing.","Context-menu suppression is limited to the active target and stops when the test exits.","Trackpads, pens, and accessibility pointers can produce different event patterns.","A received event does not certify the physical switch or sensor."]}
+  faqs={[
+    { question: 'Can this test measure mouse DPI?', answer: 'No. It reports browser events and target movement, not exact hardware DPI.' },
+    { question: 'Can it measure polling rate?', answer: 'No. Browser event timing is not a reliable hardware polling-rate measurement.' },
+    { question: 'Why is right-click disabled only in the target?', answer: 'The test prevents the context menu only where needed and does not change normal page behavior elsewhere.' },
+    { question: 'Why are side buttons missing?', answer: 'The device, driver, browser, or operating system may reserve or remap them.' },
+    { question: 'Does dragging remain required to leave the test?', answer: 'No. All navigation and exit controls remain ordinary buttons and links.' },
+  ]}
+  related={[{ title: 'Test your keyboard', href: '/keyboard-test/' },{ title: 'Test your touchscreen', href: '/touchscreen-test/' },{ title: 'Run Complete Device Check', href: '/device-check/' }]}
+>
+  <MouseTest client:load slot="tool" />
+</ToolPageLayout>

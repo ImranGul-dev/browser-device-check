@@ -1,0 +1,33 @@
+---
+import { guideLinks, siteConfig, tests } from '@/config/site';
+---
+<footer class="site-footer">
+  <div class="content-container">
+    <div class="footer-grid">
+      <section class="footer-group"><h2>Tests</h2><ul>{tests.map((test) => <li><a href={test.href}>{test.title}</a></li>)}<li><a href="/device-check/">Complete Device Check</a></li></ul></section>
+      <section class="footer-group"><h2>Guides</h2><ul><li><a href="/guides/">Guides Hub</a></li>{guideLinks.map((guide) => <li><a href={guide.href}>{guide.title}</a></li>)}</ul></section>
+      <section class="footer-group"><h2>Company</h2><ul><li><a href="/about/">About</a></li><li><a href="/contact/">Contact</a></li><li><a href="/accessibility/">Accessibility</a></li></ul></section>
+      <section class="footer-group"><h2>Legal</h2><ul><li><a href="/privacy-policy/">Privacy Policy</a></li><li><a href="/cookie-policy/">Cookie Policy</a></li><li><a href="/terms-and-conditions/">Terms and Conditions</a></li><li><button type="button" id="privacy-choices">Privacy Choices</button></li></ul></section>
+    </div>
+    <div class="footer-disclosure">
+      <p>Device-test media and interactions are processed locally by the testing tools. Camera video and microphone audio are not uploaded or saved by the tests. Hosting and the FormSubmit contact service may process separate information as explained in the Privacy Policy.</p>
+      <p>Advertising and analytics are disabled at launch. If advertising is enabled later, it will not influence test results or editorial content.</p>
+      <p>Contact: <a href={`mailto:${siteConfig.supportEmail}`}>{siteConfig.supportEmail}</a></p>
+      <p>© {new Date().getFullYear()} {siteConfig.name}. Published by {siteConfig.publisherName}.</p>
+      <p id="privacy-choices-status" class="notice notice-info notice-plain" role="status" hidden></p>
+    </div>
+  </div>
+</footer>
+<script>
+  document.querySelector('#privacy-choices')?.addEventListener('click', () => {
+    window.dispatchEvent(new CustomEvent('open-privacy-choices'));
+    if (document.documentElement.dataset.consentEnabled !== 'true') {
+      const status = document.querySelector<HTMLElement>('#privacy-choices-status');
+      if (status) {
+        status.hidden = false;
+        status.textContent = 'Advertising, analytics, and the site-wide consent platform are disabled. The browser-local testing tools do not depend on them.';
+        status.scrollIntoView({ block: 'nearest' });
+      }
+    }
+  });
+</script>

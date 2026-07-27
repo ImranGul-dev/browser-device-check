@@ -1,0 +1,8 @@
+---
+import Icon from './Icon.astro';
+interface Props { title: string; href: string; description: string; cta: string; icon: string; featured?: boolean; }
+const { title, href, description, cta, icon, featured = false } = Astro.props;
+---
+<article class:list={['tool-card', featured && 'tool-card-featured']}>
+  <div class="icon-box"><Icon name={icon} /></div><h3>{title}</h3><p>{description}</p><a class="btn btn-secondary" href={href}>{cta} <Icon name="arrow" size={18} /></a>
+</article>

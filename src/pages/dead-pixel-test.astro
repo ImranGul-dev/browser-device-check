@@ -1,0 +1,39 @@
+---
+import ToolPageLayout from '@/layouts/ToolPageLayout.astro';
+import DeadPixelTest from '@/components/tools/DeadPixelTest';
+---
+<ToolPageLayout
+  title="Dead Pixel Test"
+  seoTitle="Dead Pixel Test - Inspect Your Monitor and Screen"
+  description="Use full-screen colors, OLED dark-gray screens, gradients, and patterns to visually inspect a monitor, laptop, phone, or tablet."
+  instructionHeading="Inspect your screen"
+  resultHeading="Dead pixels, stuck pixels, dust, marks, and screen damage"
+  troubleshootingHeading="Investigate a suspicious spot"
+  limitationsHeading="What the test can and cannot determine"
+  path="/dead-pixel-test/"
+  intro="Display solid black, white, red, green, blue, gray, near-black OLED checks, gradients, and patterns to inspect the screen visually for suspicious dots, marks, lines, or uneven areas."
+  privacy="No screenshot or image of your screen is captured."
+  instructions={["Clean the screen according to the manufacturer’s instructions.","Select Start Screen Inspection and enter browser fullscreen when available.","Use Next, Previous, Arrow keys, or Space to move through colors and patterns.","Pause any moving pattern if you prefer reduced motion.","Inspect from normal viewing distance and different angles.","Exit with the visible button or browser fullscreen control, then record what you saw."]}
+  interpretations={[
+    { title: 'No suspicious area reported', body: 'You did not report a visible issue during the inspection. Intermittent or very small problems may still need another check.' },
+    { title: 'Fixed dot or spot', body: 'Compare several colors and clean the surface. A persistent spot may be a dead or stuck pixel, dust, a scratch, pressure damage, or another display issue.' },
+    { title: 'Line or uneven area', body: 'A persistent line or uneven region may involve the panel, cable, graphics path, pressure, image retention, or software. Compare a screenshot on another device and consult the manufacturer.' },
+  ]}
+  troubleshooting={[
+    { title: 'Investigate a suspicious spot', body: 'Clean the screen, compare black and bright colors, change viewing angle, take note of the exact location, and compare an external display or screenshot.' },
+    { title: 'Distinguish dust from a pixel issue', body: 'Turn the display off and inspect the surface under side lighting. Surface marks remain visible when the panel is off; pixel behavior changes with test colors.' },
+    { title: 'Check possible image retention', body: 'Use neutral content, allow the display to rest, follow manufacturer guidance, and avoid aggressive flashing or unverified repair videos.' },
+    { title: 'Decide whether to seek service', body: 'Review warranty terms, pixel policies, safety guidance, and professional repair options. This page cannot determine warranty coverage.' },
+  ]}
+  limitations={["The test is a visual inspection aid and does not automatically see, diagnose, repair, or classify physical pixels.","Color accuracy depends on the display, browser, operating system, color profile, brightness, and ambient light.","Fullscreen behavior differs by browser and device; the visible Exit control remains the primary recovery path.","Moving patterns pause when requested and respect reduced-motion preferences.","The tool does not determine warranty eligibility or safe repair procedures."]}
+  faqs={[
+    { question: 'Can the website automatically find dead pixels?', answer: 'No. You inspect the screen and report what you see.' },
+    { question: 'Does the test take a screenshot?', answer: 'No. It only displays colors and patterns.' },
+    { question: 'What is the OLED near-black screen for?', answer: 'It can make uneven near-black behavior easier to observe, but it is not professional calibration.' },
+    { question: 'Can the test fix a stuck pixel?', answer: 'No. It does not claim to repair pixels. Follow manufacturer guidance and avoid aggressive flashing.' },
+    { question: 'How do I exit fullscreen?', answer: 'Use the visible Exit Full Screen button or the browser’s own fullscreen control. Escape may also work where the browser allows it.' },
+  ]}
+  related={[{ title: 'Test your touchscreen', href: '/touchscreen-test/' },{ title: 'Run Complete Device Check', href: '/device-check/' },{ title: 'Test your webcam', href: '/webcam-test/' }]}
+>
+  <DeadPixelTest client:load slot="tool" />
+</ToolPageLayout>

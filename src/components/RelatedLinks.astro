@@ -1,0 +1,6 @@
+---
+interface Link { title: string; href: string; }
+interface Props { links: Link[]; }
+const { links } = Astro.props;
+---
+<div class="related-grid">{links.map((link) => <a class="related-link" href={link.href}>{link.title}</a>)}</div>

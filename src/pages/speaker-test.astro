@@ -1,0 +1,39 @@
+---
+import ToolPageLayout from '@/layouts/ToolPageLayout.astro';
+import SpeakerTest from '@/components/tools/SpeakerTest';
+---
+<ToolPageLayout
+  title="Test Your Speakers and Headphones"
+  seoTitle="Speaker Test - Check Left, Right and Stereo Audio"
+  description="Play left, right, stereo, speech, and tone samples through speakers or headphones, then confirm what you heard."
+  instructionHeading="How to use the speaker test"
+  resultHeading="Understand your speaker result"
+  troubleshootingHeading="Troubleshoot a speaker or headphone problem"
+  limitationsHeading="Privacy and technical limitations"
+  path="/speaker-test/"
+  intro="Play conservative-volume left, right, stereo, speech, and centered tone samples, then confirm what you heard. The browser cannot listen to your speakers automatically."
+  privacy="This test plays audio only. It does not use your microphone to listen to your speakers."
+  instructions={["Set the system volume to a low, comfortable level.","Select a left, right, stereo, speech, or centered sample.","Use Stop Sound immediately if needed.","Confirm whether you heard the expected sound, only part of it, nothing, or are not sure.","Check output selection, balance, cable, and Bluetooth settings if the result is incomplete."]}
+  interpretations={[
+    { title: 'Playback confirmed', body: 'You confirmed hearing the expected sample. User confirmation is the only passing signal because the page does not use a microphone.' },
+    { title: 'Only one side or part was heard', body: 'Balance, mono-audio, cable, adapter, channel mapping, Bluetooth mode, or the physical output may need review.' },
+    { title: 'No sound confirmed', body: 'Check mute, volume, operating-system output selection, cable or Bluetooth routing, and application control.' },
+  ]}
+  troubleshooting={[
+    { title: 'No sound plays', body: 'Raise the system volume carefully, unmute the output, select the intended device in operating-system settings, and close applications that may control exclusive audio.' },
+    { title: 'Left and right are reversed', body: 'Check headphone orientation, cable connections, channel mapping, accessibility audio settings, and any receiver or interface routing.' },
+    { title: 'Both channel sounds come from both sides', body: 'The device, browser, operating system, or connection may be downmixing stereo or applying mono audio.' },
+    { title: 'A specific speaker cannot be selected', body: 'Many browsers do not expose output-device selection. Choose the output in operating-system or browser settings and rerun the sample.' },
+  ]}
+  limitations={["The page does not use a microphone and cannot automatically verify that sound was audible.","The samples are basic playback checks, not calibrated acoustic measurement.","Output-device selection is not consistently exposed by browsers.","Use a low comfortable volume; this page does not provide hearing or medical advice.","A passed browser check does not guarantee identical routing in another application."]}
+  faqs={[
+    { question: 'Why did the browser play sound but the result is incomplete?', answer: 'Playback alone does not prove that you heard it. Select the option that matches what you heard.' },
+    { question: 'Why can I not choose a specific speaker?', answer: 'Many browsers do not expose output-device selection to webpages. Use operating-system output settings.' },
+    { question: 'Can this test measure speaker quality?', answer: 'No. It provides basic playback and channel checks, not calibrated acoustic measurement.' },
+    { question: 'Why do both channel sounds come from both speakers?', answer: 'The device, browser, operating system, or connection may be downmixing or applying audio processing.' },
+    { question: 'Is the tone safe?', answer: 'Use a low, comfortable volume and stop immediately if it is uncomfortable. The site does not provide hearing or medical advice.' },
+  ]}
+  related={[{ title: 'Run Complete Device Check', href: '/device-check/' },{ title: 'Test your microphone', href: '/microphone-test/' },{ title: 'Test your webcam', href: '/webcam-test/' },{ title: 'Prepare for an online interview', href: '/guides/test-camera-microphone-before-interview/' }]}
+>
+  <SpeakerTest client:load slot="tool" />
+</ToolPageLayout>

@@ -1,0 +1,39 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Breadcrumbs from '@/components/Breadcrumbs.astro';
+import PrivacyNotice from '@/components/PrivacyNotice.astro';
+import FaqList from '@/components/FaqList.astro';
+import RelatedLinks from '@/components/RelatedLinks.astro';
+import AdSlot from '@/components/AdSlot.astro';
+import DeviceCheck from '@/components/tools/DeviceCheck';
+import { buildToolSchema } from '@/lib/schema';
+const description = 'Check your browser, camera, microphone, speakers, permissions, and screen-sharing support before a meeting, interview, exam, or appointment.';
+const faqs = [
+  { question: 'Does the Device Check create a health score?', answer: 'No. It uses Ready, Ready with warnings, Not ready, or Check incomplete. A numerical score would imply unsupported precision.' },
+  { question: 'Is screen-sharing content recorded?', answer: 'No. If you choose a source, the test stops the track immediately and does not preview, record, upload, or store the content.' },
+  { question: 'What if I skip a step?', answer: 'The final category becomes Check incomplete unless every required step has enough browser evidence or user confirmation.' },
+  { question: 'Does Ready guarantee a meeting app will work?', answer: 'No. A separate application may select different devices, permissions, accounts, policies, or operating-system settings.' },
+];
+const jsonLd = buildToolSchema({
+  name: 'Complete Device Check',
+  path: '/device-check/',
+  description,
+  featureList: [
+    'Browser and display feature review',
+    'Local camera preview with user confirmation',
+    'Local relative microphone activity check',
+    'User-confirmed speaker playback',
+    'Best-effort browser permission status review',
+    'Explicit screen-sharing chooser availability check',
+    'Categorical readiness result without a numerical score',
+  ],
+});
+---
+<BaseLayout title="Complete Device Check - Test Camera, Mic and Speakers" description={description} canonicalPath="/device-check/" jsonLd={jsonLd}>
+  <Breadcrumbs items={[{ label: 'Complete Device Check' }]} />
+  <section class="section-sm tool-container"><p class="eyebrow">Guided readiness workflow</p><h1>Complete Device Check</h1><p class="lead">Check browser support, display information, camera, microphone, speakers, permission states, and screen-sharing availability before a meeting, interview, class, exam, webinar, or remote appointment.</p><PrivacyNotice><strong>Privacy:</strong> Camera and microphone media remain on this device. Screen-sharing content is not previewed, recorded, uploaded, or stored. Text results remain only in the current page session.</PrivacyNotice><DeviceCheck client:load /></section>
+  <section class="section-alt"><div class="article-container prose"><h2>What the guided check includes</h2><ol><li>Browser and display feature availability.</li><li>A local camera preview with user confirmation.</li><li>Relative local microphone activity.</li><li>A user-confirmed speaker tone.</li><li>Browser-exposed camera and microphone permission states.</li><li>An explicit screen-sharing chooser check with immediate track shutdown.</li><li>A categorical result with recommended next actions.</li></ol><h2>Result categories</h2><table><thead><tr><th>Category</th><th>Meaning</th></tr></thead><tbody><tr><td>Ready</td><td>Every guided step completed without a warning in this browser session.</td></tr><tr><td>Ready with warnings</td><td>Core checks completed, but one or more items should be reviewed.</td></tr><tr><td>Not ready</td><td>At least one important step failed or was not usable.</td></tr><tr><td>Check incomplete</td><td>One or more steps were skipped or not confirmed.</td></tr></tbody></table></div></section>
+  <section class="section"><div class="article-container prose"><h2>How to prepare before starting</h2><ul><li>Connect the intended camera, microphone, speakers, headset, and display.</li><li>Close other applications that may already be using the camera or microphone.</li><li>Use a current browser over HTTPS or localhost.</li><li>Set speaker volume to a low, comfortable level.</li><li>Be ready to respond to browser permission prompts and a screen-sharing chooser.</li></ul><h2>Understand the limitations</h2><p>The workflow combines browser-observed evidence with user confirmations. It does not inspect every hardware component, provide professional calibration, certify a device, or guarantee compatibility with a third-party platform. Organization policy, operating-system permissions, application settings, and device routing may differ.</p></div></section>
+  <AdSlot placement="device-check-final-results" />
+  <section class="section-alt"><div class="article-container prose"><h2>Frequently asked questions</h2><FaqList faqs={faqs} /><h2>Related tools and guides</h2><RelatedLinks links={[{ title: 'Test your webcam', href: '/webcam-test/' },{ title: 'Test your microphone', href: '/microphone-test/' },{ title: 'Test your speakers', href: '/speaker-test/' },{ title: 'Fix camera and microphone permissions', href: '/guides/camera-microphone-permissions/' },{ title: 'Prepare for an online interview', href: '/guides/test-camera-microphone-before-interview/' }]} /></div></section>
+</BaseLayout>

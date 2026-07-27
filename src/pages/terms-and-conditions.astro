@@ -1,0 +1,157 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Breadcrumbs from '@/components/Breadcrumbs.astro';
+import PrivacyNotice from '@/components/PrivacyNotice.astro';
+import { siteConfig } from '@/config/site';
+import { buildSimplePageSchema } from '@/lib/schema';
+
+const description = `Read the terms governing use of ${siteConfig.name} browser-based device tests, troubleshooting content, advertising, and third-party services.`;
+const jsonLd = buildSimplePageSchema({
+  type: 'WebPage',
+  name: 'Terms and Conditions',
+  path: '/terms-and-conditions/',
+  description,
+  includePublisher: false,
+});
+---
+
+<BaseLayout title="Terms and Conditions" description={description} canonicalPath="/terms-and-conditions/" jsonLd={jsonLd}>
+  <Breadcrumbs items={[{ label: 'Terms and Conditions' }]} />
+  <article class="section-sm article-container prose">
+    <h1>Terms and Conditions</h1>
+    <p class="muted">Last updated: {siteConfig.updatedDate}</p>
+    <PrivacyNotice>
+      <strong>Legal note:</strong> These Terms provide general website-use rules and are not legal
+      advice. They do not select an exclusive governing law or court. Mandatory rights that apply to
+      you are not excluded.
+    </PrivacyNotice>
+
+    <p>
+      These Terms govern your use of {siteConfig.name} at <a href={siteConfig.origin}>{siteConfig.origin}</a>,
+      operated by {siteConfig.publisherName}. By using the website, you agree to these Terms. If you do
+      not agree, do not use the website.
+    </p>
+
+    <h2>1. Free informational utility</h2>
+    <p>
+      {siteConfig.name} provides free browser-based informational utilities and troubleshooting content
+      for webcams, microphones, speakers and headphones, keyboards, mice and trackpads, touchscreens,
+      displays, refresh timing, browser capabilities, game controllers, and pre-call readiness. The
+      launch site does not require a paid subscription or user account.
+    </p>
+
+    <h2>2. Informational purpose only</h2>
+    <p>
+      The tests provide browser-based observations and user-guided checks. They are not professional
+      hardware certification, manufacturer diagnostics, laboratory calibration, medical advice, legal
+      advice, safety certification, accessibility certification, employment advice, warranty
+      determination, or proof that a device is free from defects.
+    </p>
+
+    <h2>3. No warranty of exact results</h2>
+    <p>
+      Results can be affected by browser behavior, operating-system settings, permissions, hardware,
+      drivers, scaling, zoom, network conditions, other applications, user confirmation, accessibility
+      software, organization policy, and device routing. A browser result may differ from a third-party
+      application.
+    </p>
+
+    <h2>4. Local processing and permissions</h2>
+    <p>
+      Primary test media and interactions are designed to run locally. You control whether to grant
+      browser permissions. Stop or exit a test when finished. Do not monitor another person, use a
+      device without authorization, or type sensitive information in the keyboard test.
+    </p>
+
+    <h2>5. Safe use</h2>
+    <ul>
+      <li>Use a low comfortable speaker volume.</li>
+      <li>Follow manufacturer cleaning, electrical, battery, display, and repair guidance.</li>
+      <li>Do not use flashing or aggressive pixel-repair content from untrusted sources.</li>
+      <li>Do not rely solely on the site for safety-critical, medical, employment, examination, legal, financial, or warranty decisions.</li>
+      <li>Seek qualified service when physical damage, overheating, electrical risk, or persistent failure is suspected.</li>
+    </ul>
+
+    <h2>6. Availability and compatibility</h2>
+    <p>
+      The website does not guarantee support for every browser, device, assistive technology,
+      operating system, or third-party platform. Features may be unavailable when a browser lacks an
+      API, the page is not secure, a permission is blocked, or an organization policy applies.
+    </p>
+
+    <h2>7. User responsibility</h2>
+    <ul>
+      <li>Use the website lawfully and follow instructions.</li>
+      <li>Select appropriate devices and safe volume levels.</li>
+      <li>Protect passwords and sensitive information.</li>
+      <li>Avoid sensitive input during the keyboard test.</li>
+      <li>Verify important results through another method.</li>
+      <li>Confirm third-party platform requirements.</li>
+      <li>Decide whether equipment requires professional service.</li>
+    </ul>
+
+    <h2>8. Prohibited misuse</h2>
+    <ul>
+      <li>Unlawful use or attempts to damage, disrupt, probe, or bypass website security.</li>
+      <li>Introducing malware or excessive automated requests.</li>
+      <li>Misusing camera, microphone, screen-sharing, or input permissions.</li>
+      <li>Monitoring another person without permission.</li>
+      <li>Misrepresenting results as professional certification.</li>
+      <li>Facilitating fraud, abuse, harassment, or unauthorized surveillance.</li>
+    </ul>
+
+    <h2>9. Intellectual property</h2>
+    <p>
+      Unless stated otherwise, original text, design, branding, code, interface copy, and
+      troubleshooting structure are owned by or licensed to {siteConfig.publisherName} and protected
+      by applicable law. Open-source dependencies remain subject to their own licenses. Third-party
+      names and trademarks belong to their owners and do not imply endorsement.
+    </p>
+
+    <h2>10. Feedback and contact submissions</h2>
+    <p>
+      You may submit suggestions, bug reports, corrections, privacy questions, or accessibility
+      feedback through the Contact page. Form submissions are processed by FormSubmit and email
+      providers. Do not submit confidential or proprietary information. The publisher is not required
+      to implement every suggestion.
+    </p>
+
+    <h2>11. Advertising</h2>
+    <p>
+      The website may later display Google AdSense advertising to support free access. Advertisers do
+      not determine device-test results, pass or failure states, editorial conclusions, or
+      troubleshooting recommendations. Transactions are between the visitor and advertiser.
+      Advertising is disabled at launch.
+    </p>
+
+    <h2>12. Third-party services and links</h2>
+    <p>
+      The site uses or may link to hosting providers, FormSubmit, email providers, browser vendors,
+      operating-system providers, manufacturers, meeting platforms, advertisers, and other third
+      parties. The publisher is not responsible for their availability, security, privacy practices,
+      products, services, pricing, support, or claims.
+    </p>
+
+    <h2>13. Service changes</h2>
+    <p>
+      The publisher may update tests, correct content, remove a feature, change hosting, introduce or
+      remove advertising, change supported browsers, or perform maintenance. Continuous or error-free
+      access is not guaranteed.
+    </p>
+
+    <h2>14. Disclaimer of warranties and liability</h2>
+    <p>
+      To the extent permitted by applicable law, the website is provided “as is” and “as available.”
+      The publisher does not warrant that every result will be exact, every problem will be found,
+      every fix will work, or every third-party platform will function. Nothing in these Terms excludes
+      rights or warranties that cannot lawfully be excluded.
+    </p>
+
+    <h2>15. Governing law and disputes</h2>
+    <p>
+      These Terms do not designate an exclusive governing law, court, or dispute forum. Applicable
+      mandatory law and consumer rights may depend on where you live and the circumstances of your use.
+      Contact {siteConfig.legalEmail} with a legal notice or question.
+    </p>
+  </article>
+</BaseLayout>

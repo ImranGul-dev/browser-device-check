@@ -1,0 +1,35 @@
+---
+import ToolPageLayout from '@/layouts/ToolPageLayout.astro';
+import ScreenResolutionTest from '@/components/tools/ScreenResolutionTest';
+---
+<ToolPageLayout
+  title="Screen Resolution Test"
+  seoTitle="Screen Resolution Test - Check Display and Viewport Size"
+  description="Check browser-reported screen size, viewport dimensions, device pixel ratio, orientation, and color depth without installing software."
+  path="/screen-resolution/"
+  intro="Review the dimensions and display values that the current browser exposes. The test separates screen-reported CSS size, browser viewport size, visual viewport, and a limited rendering-pixel estimate."
+  privacy="Display and viewport values are read locally in this browser and are not uploaded or stored by this tool."
+  instructions={["Select Check My Display.","Review the browser-reported screen and available-area dimensions.","Compare the layout viewport and visual viewport values.","Review the device pixel ratio and limited rendering-pixel estimate.","Resize the browser, change zoom, rotate the device, or move the window to another display to see values update.","Use the limitations below before treating any value as physical hardware resolution."]}
+  interpretations={[
+    { title: 'Screen-reported size', body: 'The Screen API reports width and height in CSS pixels. Operating-system scaling and browser privacy behavior can affect the values.' },
+    { title: 'Viewport size', body: 'The viewport is the area available to the webpage. Browser controls, sidebars, zoom, and mobile software keyboards can change it.' },
+    { title: 'Device pixel ratio', body: 'This ratio describes how browser CSS pixels relate to device pixels for the current display and zoom state.' },
+    { title: 'Rendering-pixel estimate', body: 'The estimate multiplies screen CSS dimensions by devicePixelRatio. It is useful context but is not guaranteed to equal the panel’s native physical resolution.' },
+  ]}
+  troubleshooting={[
+    { title: 'The number looks lower than the advertised resolution', body: 'Operating-system display scaling often makes the browser report CSS pixels rather than native panel pixels. Review display settings and manufacturer specifications.' },
+    { title: 'The value changes when zooming', body: 'Page zoom can change devicePixelRatio and viewport dimensions. Return the browser to 100 percent zoom and compare again.' },
+    { title: 'The viewport is smaller than the screen', body: 'The browser window, tabs, toolbars, side panels, mobile browser chrome, and software keyboard use part of the available area.' },
+    { title: 'A second monitor reports different values', body: 'Move the entire window to the other display and refresh the measurements. Different displays can use different scaling factors.' },
+  ]}
+  limitations={["Screen and viewport dimensions are reported in CSS pixels, not guaranteed physical panel pixels.","devicePixelRatio can be affected by page zoom and operating-system scaling.","The rendering-pixel estimate is not a reliable substitute for manufacturer specifications.","Remote desktop, virtual machines, browser privacy protections, and multi-monitor arrangements can change reported values.","The tool does not identify monitor model, physical size, pixel pitch, color calibration, or exact native resolution."]}
+  faqs={[
+    { question: 'Is screen resolution the same as browser viewport size?', answer: 'No. Screen size describes the display area reported to the browser, while the viewport is the area currently available to the webpage.' },
+    { question: 'Can this tool detect the exact native monitor resolution?', answer: 'Not reliably. Browser values can be affected by scaling and zoom, so manufacturer and operating-system display information remain the authoritative sources.' },
+    { question: 'What does device pixel ratio mean?', answer: 'It is the browser-reported ratio between device pixels and CSS pixels for the current display and zoom state.' },
+    { question: 'Why does the result change on another monitor?', answer: 'The displays may have different dimensions, density, scaling, or browser placement.' },
+  ]}
+  related={[{ title: 'Run the Dead Pixel Test', href: '/dead-pixel-test/' },{ title: 'Estimate refresh rate', href: '/refresh-rate-test/' },{ title: 'Check browser information', href: '/browser-info/' }]}
+>
+  <ScreenResolutionTest client:load slot="tool" />
+</ToolPageLayout>

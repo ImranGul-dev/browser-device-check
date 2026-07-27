@@ -1,0 +1,21 @@
+---
+import BaseLayout from './BaseLayout.astro';
+import Breadcrumbs from '@/components/Breadcrumbs.astro';
+import AdSlot from '@/components/AdSlot.astro';
+import RelatedLinks from '@/components/RelatedLinks.astro';
+import { buildGuideSchema } from '@/lib/schema';
+import { siteConfig } from '@/config/site';
+interface Props { title: string; seoTitle: string; appendSiteName: boolean; description: string; slug: string; published: Date; updated: Date; category: string; relatedTools: { title: string; href: string }[]; }
+const { title, seoTitle, appendSiteName, description, slug, published, updated, category, relatedTools } = Astro.props;
+const path = `/guides/${slug}/`;
+const jsonLd = buildGuideSchema({ title, description, path, published, updated });
+---
+<BaseLayout title={seoTitle} appendSiteName={appendSiteName} description={description} canonicalPath={path} ogType="article" jsonLd={jsonLd} ogImageAlt={`${title} troubleshooting guide`} publishedTime={published.toISOString()} modifiedTime={updated.toISOString()}>
+  <Breadcrumbs items={[{ label: 'Guides', href: '/guides/' },{ label: title }]} />
+  <article class="section-sm article-container prose">
+    <p class="eyebrow">{category} guide</p><h1>{title}</h1><p class="lead">{description}</p><p class="muted">Published {published.toLocaleDateString('en-US', { dateStyle: 'long' })} · Last reviewed {updated.toLocaleDateString('en-US', { dateStyle: 'long' })} · Reviewed by {siteConfig.publisherName}</p>
+    <slot />
+  </article>
+  <AdSlot placement={`guide-${slug}-mid-content`} />
+  <section class="section-alt"><div class="article-container prose"><h2>Related tests and guides</h2><RelatedLinks links={relatedTools} /><p class="muted">Technical steps should be compared with current official browser, operating-system, and platform support information. Report a correction through the Contact page.</p></div></section>
+</BaseLayout>

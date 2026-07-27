@@ -1,0 +1,13 @@
+{
+  "name": "Browser Device Check",
+  "short_name": "Device Check",
+  "description": "Privacy-first browser device testing tools.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#F8FAFC",
+  "theme_color": "#1D4ED8",
+  "icons": [
+    { "src": "/favicon-48x48.png", "sizes": "48x48", "type": "image/png" },
+    { "src": "/apple-touch-icon.png", "sizes": "180x180", "type": "image/png" }
+  ]
+}

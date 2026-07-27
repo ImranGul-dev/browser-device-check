@@ -1,0 +1,34 @@
+---
+import ToolPageLayout from '@/layouts/ToolPageLayout.astro';
+import RefreshRateTest from '@/components/tools/RefreshRateTest';
+---
+<ToolPageLayout
+  title="Refresh Rate Test"
+  seoTitle="Refresh Rate Test - Estimate Browser FPS and Display Hz"
+  description="Estimate the browser-observed display refresh rate with a short requestAnimationFrame timing test. No installation or account required."
+  path="/refresh-rate-test/"
+  intro="Run a short visible-tab sample to estimate how frequently the browser receives animation frames. The result is useful for troubleshooting but is not an exact hardware measurement."
+  privacy="Frame timestamps are calculated locally in this browser and are not uploaded or stored by this tool."
+  instructions={["Keep this browser tab visible.","Select Start Refresh Rate Test.","Avoid switching tabs, resizing the window, or running heavy tasks during the sample.","Wait about 3.5 seconds for the estimate.","Review the estimated rate, frame interval, timing variation, and long-frame count.","Run the test several times and compare with operating-system display settings."]}
+  interpretations={[
+    { title: 'Browser-observed estimate', body: 'The estimate is calculated from animation callback intervals while the page is visible. It often resembles the active display refresh rate.' },
+    { title: 'Median frame interval', body: 'This is the typical time between sampled animation callbacks. Roughly 16.7 ms commonly corresponds to 60 Hz, while 8.3 ms commonly corresponds to 120 Hz.' },
+    { title: 'Timing variation and long frames', body: 'Higher variation can come from background work, power-saving behavior, browser scheduling, thermal limits, or dropped frames.' },
+  ]}
+  troubleshooting={[
+    { title: 'The estimate is lower than display settings', body: 'Keep the tab visible, connect power, disable battery-saving restrictions, close heavy applications, confirm the browser is on the intended monitor, and run the test again.' },
+    { title: 'The result changes between runs', body: 'Short browser timing samples naturally vary. Compare multiple runs and the operating-system display setting rather than relying on one result.' },
+    { title: 'The test stops when changing tabs', body: 'Browsers usually pause or reduce animation callbacks in hidden tabs. Return to the page and restart the visible-tab sample.' },
+    { title: 'A high-refresh display still appears capped', body: 'Check operating-system refresh-rate settings, cable and port capabilities, graphics settings, browser power mode, remote desktop limits, and whether the window is on the correct display.' },
+  ]}
+  limitations={["requestAnimationFrame timing generally follows display refresh, but browser scheduling can delay callbacks.","The test does not read monitor firmware or certify the exact hardware refresh rate.","Variable-refresh displays can change behavior while the test runs.","Background tabs, battery saving, thermal throttling, remote desktops, virtual machines, and heavy workloads can lower the estimate.","The result is not a gaming performance benchmark or a guarantee of application frame rate."]}
+  faqs={[
+    { question: 'Is the result my exact monitor refresh rate?', answer: 'No. It is a browser-observed timing estimate and should be compared with operating-system and manufacturer information.' },
+    { question: 'Why must the tab stay visible?', answer: 'Browsers commonly pause or throttle animation callbacks in background tabs to save resources.' },
+    { question: 'Is refresh rate the same as game FPS?', answer: 'No. Refresh rate describes display updates, while game FPS depends on the application and graphics workload.' },
+    { question: 'Can the test detect variable refresh rate?', answer: 'It may show changing timing, but it cannot reliably identify or certify a variable-refresh technology.' },
+  ]}
+  related={[{ title: 'Check screen resolution', href: '/screen-resolution/' },{ title: 'Run the Dead Pixel Test', href: '/dead-pixel-test/' },{ title: 'Check browser information', href: '/browser-info/' }]}
+>
+  <RefreshRateTest client:load slot="tool" />
+</ToolPageLayout>

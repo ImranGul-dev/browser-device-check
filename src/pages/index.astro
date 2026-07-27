@@ -1,0 +1,32 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import ToolCard from '@/components/ToolCard.astro';
+import PrivacyNotice from '@/components/PrivacyNotice.astro';
+import RelatedLinks from '@/components/RelatedLinks.astro';
+import FaqList from '@/components/FaqList.astro';
+import AdSlot from '@/components/AdSlot.astro';
+import Icon from '@/components/Icon.astro';
+import { guideLinks, tests } from '@/config/site';
+import { buildHomeSchema } from '@/lib/schema';
+const description = 'Test your webcam, microphone, speakers, keyboard, mouse, touchscreen, display, browser, refresh rate, screen resolution, and game controller directly in your browser.';
+const faqs = [
+  { question: 'Do I need an account?', answer: 'No. The website does not require an account, login, subscription, or paid plan.' },
+  { question: 'Are camera and microphone recordings uploaded?', answer: 'No. Camera video and microphone audio remain on the device during the tests and are not uploaded or saved by the tools.' },
+  { question: 'Can a browser test guarantee that Zoom, Teams, Meet, or an exam platform will work?', answer: 'No. Another application can use different devices, permissions, accounts, policies, or operating-system settings. Use its official preview after completing the browser check.' },
+  { question: 'Are the results a professional certification?', answer: 'No. The tools provide practical browser observations and user-confirmed checks, not professional certification or laboratory calibration.' },
+];
+const jsonLd = buildHomeSchema(description);
+---
+<BaseLayout title="Online Device Tests for Camera, Mic, Speakers and More" description={description} canonicalPath="/" jsonLd={jsonLd}>
+  <section class="hero">
+    <div class="content-container hero-grid">
+      <div><p class="eyebrow">Private browser-based diagnostics</p><h1>Test your devices before they let you down</h1><p class="lead">Check your camera, microphone, speakers, keyboard, mouse, touchscreen, display, browser, refresh rate, screen resolution, and controller directly in your browser. Get a clear result, understand common limitations, and follow the next practical fix.</p><div class="button-row"><a class="btn btn-primary" href="/device-check/">Run Complete Device Check <Icon name="arrow" size={18} /></a><a class="btn btn-secondary" href="#device-tests">Choose a Device Test</a></div></div>
+      <aside class="hero-panel" aria-label="Privacy and access summary"><ul class="trust-list"><li><Icon name="check" /><span><strong>No account or signup.</strong><br />Open a test and start when ready.</span></li><li><Icon name="shield" /><span><strong>Media stays local.</strong><br />Camera video and microphone audio are not uploaded by the tests.</span></li><li><Icon name="lock" /><span><strong>Permission only after explanation.</strong><br />No camera, microphone, or screen-sharing prompt on page load.</span></li></ul></aside>
+    </div>
+  </section>
+  <section class="section-sm"><div class="content-container"><PrivacyNotice><strong>Privacy:</strong> No account is required. Camera video and microphone audio are not uploaded or saved by the testing tools. Optional advertising, analytics, consent, and contact integrations are disabled in this build.</PrivacyNotice></div></section>
+  <section class="section" id="device-tests"><div class="content-container"><p class="eyebrow">Choose a test</p><h2>Browser device tests</h2><p class="lead">Each tool runs as a focused local test. Results explain what the browser observed, what you confirmed, and what the page cannot prove.</p><div class="card-grid">{tests.map((test) => <ToolCard {...test} />)}<ToolCard title="Complete Device Check" href="/device-check/" description="Run a guided camera, microphone, speaker, permission, screen-sharing, browser, and display readiness workflow." cta="Run Complete Device Check" icon="check" featured /></div></div></section>
+  <section class="section-alt"><div class="content-container"><div class="article-container prose"><h2>How it works</h2><ol><li>Choose an individual test or start the Complete Device Check.</li><li>Allow only the browser permission needed for the current step.</li><li>Review the browser result and any user-confirmation prompt.</li><li>Follow the recommended fix and run the test again when needed.</li></ol><h2>What the tests can tell you</h2><ul><li>Whether the browser received a camera, microphone, key, pointer, touch, controller, or screen-capture event, and which display or browser values it exposes.</li><li>Which device the browser selected when a label is available.</li><li>Whether permission was allowed, blocked, dismissed, unavailable, or not exposed where the browser provides that information.</li><li>Whether a user-confirmed speaker or visual display check was completed.</li><li>Which practical troubleshooting step to try next.</li></ul><h2>What the tests cannot guarantee</h2><ul><li>Professional calibration, laboratory accuracy, or hardware certification.</li><li>Guaranteed behavior in every third-party application.</li><li>Automatic proof of physical failure.</li><li>Automatic hearing of speaker output or automatic visual detection of a dead pixel.</li></ul></div></div></section>
+  <AdSlot placement="homepage-after-tools" />
+  <section class="section"><div class="content-container"><div class="article-container prose"><h2>Common use cases</h2><ul><li>Before a work meeting, client call, online interview, assessment, remote class, exam, webinar, or telehealth appointment.</li><li>After connecting a new camera, headset, keyboard, mouse, touchscreen, or monitor.</li><li>When a browser or application reports a permission or device problem.</li><li>When checking a new, used, repaired, or borrowed device.</li></ul><h2>Featured guides</h2><RelatedLinks links={guideLinks.map((guide) => ({ title: guide.title, href: guide.href }))} /><h2>Frequently asked questions</h2><FaqList faqs={faqs} /></div></div></section>
+</BaseLayout>

@@ -1,0 +1,173 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Breadcrumbs from '@/components/Breadcrumbs.astro';
+import PrivacyNotice from '@/components/PrivacyNotice.astro';
+import { siteConfig } from '@/config/site';
+import { buildSimplePageSchema } from '@/lib/schema';
+
+const description = `Learn how ${siteConfig.name} handles local device-test processing, hosting logs, advertising, cookies, consent choices, analytics, and contact submissions.`;
+const jsonLd = buildSimplePageSchema({
+  type: 'WebPage',
+  name: 'Privacy Policy',
+  path: '/privacy-policy/',
+  description,
+  includePublisher: false,
+});
+---
+
+<BaseLayout
+  title="Privacy Policy"
+  description={description}
+  canonicalPath="/privacy-policy/"
+  jsonLd={jsonLd}
+>
+  <Breadcrumbs items={[{ label: 'Privacy Policy' }]} />
+  <article class="section-sm article-container prose">
+    <h1>Privacy Policy</h1>
+    <p class="muted">Last updated: {siteConfig.updatedDate}</p>
+    <PrivacyNotice>
+      <strong>Privacy summary:</strong> The device tests perform their primary diagnostic work in
+      your browser. Camera video and microphone audio are not uploaded or stored by the testing
+      tools. Hosting and the contact-form provider process separate information as described below.
+      Advertising, analytics, and a consent platform are disabled at launch.
+    </PrivacyNotice>
+
+    <p>
+      This Privacy Policy explains how {siteConfig.publisherName}, operating {siteConfig.name} at
+      {' '}<a href={siteConfig.origin}>{siteConfig.origin}</a>, handles information when you visit the
+      website, use browser-based device tests, or contact the publisher.
+    </p>
+
+    <h2>1. Website operator</h2>
+    <p>
+      Publisher: {siteConfig.publisherName}<br />
+      Privacy email: <a href={`mailto:${siteConfig.privacyEmail}`}>{siteConfig.privacyEmail}</a><br />
+      General support: <a href={`mailto:${siteConfig.supportEmail}`}>{siteConfig.supportEmail}</a>
+    </p>
+
+    <h2>2. Local device-test processing</h2>
+    <p>
+      The interactive tests perform their main diagnostic work within the browser. Depending on the
+      test, the browser may process camera video, microphone audio, keyboard events, mouse and wheel
+      events, touchscreen coordinates, generated audio playback, display-test patterns, browser
+      capability information, screen and viewport dimensions, animation-frame timestamps,
+      game-controller identifiers and input values, permission states, and a screen-sharing track
+      selected by the visitor.
+    </p>
+    <ul>
+      <li>Camera video is displayed locally and is not uploaded, recorded, or stored by the tool.</li>
+      <li>
+        Microphone audio is analyzed locally and is not uploaded or saved. The microphone tool may
+        hold a short sample briefly in volatile memory for optional local playback, then discards it.
+      </li>
+      <li>Keyboard events are used only while the bounded test is active and are not saved.</li>
+      <li>Mouse and touch coordinates remain in the current page session.</li>
+      <li>The Dead Pixel Test displays colors and patterns and does not capture the screen.</li>
+      <li>
+        Screen, viewport, refresh-timing, browser-feature, and controller values are processed only
+        in the current browser session and are not uploaded or stored by the tools.
+      </li>
+      <li>
+        The Device Check stops a selected screen-sharing track immediately without preview,
+        recording, storage, or upload.
+      </li>
+      <li>Text results are stored only in temporary in-memory page state.</li>
+    </ul>
+
+    <h2>3. Browser permissions</h2>
+    <p>
+      Camera, microphone, fullscreen, and screen-sharing prompts are controlled by the browser or
+      operating system. The website requests camera, microphone, or screen access only after a
+      deliberate visitor action and a specific explanation. Your browser or operating system may
+      remember a decision.
+    </p>
+
+    <h2>4. Hosting and security logs</h2>
+    <p>
+      The website is designed for static hosting. A hosting provider or content-delivery network may
+      process IP address, request time, requested URL, user agent, referrer, response status, and
+      security or performance logs to deliver and protect the website. The exact provider-side
+      retention and processing terms are controlled by the selected host.
+    </p>
+
+    <h2>5. Contact messages and FormSubmit</h2>
+    <p>
+      The Contact page submits information to FormSubmit, a third-party form endpoint that forwards
+      messages to {siteConfig.supportEmail}. A submission can include your name, email address,
+      selected topic, page URL, browser or device details, message, and acknowledgement. FormSubmit
+      and its spam-protection services process this information to deliver the message. FormSubmit
+      states that submissions may be retained for 30 days. Your email provider also processes the
+      delivered message according to its own terms.
+    </p>
+    <p>
+      Do not send passwords, authentication codes, payment information, identification documents,
+      medical records, confidential workplace material, recordings, private meeting links, or other
+      sensitive information.
+    </p>
+
+    <h2>6. Advertising</h2>
+    <p>
+      Advertising is disabled at launch. If Google AdSense is enabled later, Google and advertising
+      vendors may process identifiers, device and browser information, IP address, approximate
+      location, ad interactions, consent signals, and other information under their own terms. Ads
+      must remain manually placed away from active tests and sensitive pages. A Google-certified
+      consent platform and accurate vendor disclosure may be required for relevant visitors.
+    </p>
+
+    <h2>7. Analytics</h2>
+    <p>
+      Analytics is disabled at launch. If enabled later, the implementation must not send camera or
+      microphone media, key contents, pointer coordinates, touch coordinates, device labels, contact
+      text, or detailed diagnostic summaries. Only low-risk events should be considered after privacy
+      and legal review.
+    </p>
+
+    <h2>8. Cookies and local storage</h2>
+    <p>
+      The core testing tools do not require cookies, accounts, server sessions, or cloud history. The
+      launch build does not set advertising, analytics, or consent storage. FormSubmit may use
+      security and anti-spam technology during form submission. Browsers may also store permission
+      choices. See the Cookie Policy for more detail.
+    </p>
+
+    <h2>9. Data retention</h2>
+    <p>
+      Browser test results are not persisted by the tools. They disappear when the page is reloaded,
+      closed, or reset. FormSubmit states that form submissions may be retained for 30 days. Messages
+      delivered by email may remain in the publisher's mailbox as reasonably needed to respond,
+      investigate an issue, maintain records, or protect the website.
+    </p>
+
+    <h2>10. Your choices</h2>
+    <ul>
+      <li>Do not grant a device permission and use the troubleshooting content instead.</li>
+      <li>Stop active camera or microphone tracks with the visible control.</li>
+      <li>Exit fullscreen or an active input test at any time.</li>
+      <li>Do not submit the contact form; use only the public content.</li>
+      <li>Use browser settings to clear saved permissions and storage.</li>
+      <li>Contact {siteConfig.privacyEmail} with a privacy question or applicable request.</li>
+    </ul>
+
+    <h2>11. Sensitive use</h2>
+    <p>
+      The tools are not designed to collect sensitive text, recordings, medical records, financial
+      data, or authentication information. Do not type sensitive information in the keyboard test or
+      send it through contact channels.
+    </p>
+
+    <h2>12. Security</h2>
+    <p>
+      The project uses static hosting, restrictive headers, no custom backend, and no server-side
+      media processing. No website can guarantee absolute security. Browser vulnerabilities,
+      malicious extensions, compromised devices, hosting incidents, email compromise, and
+      third-party services remain outside the tool's direct control.
+    </p>
+
+    <h2>13. Changes</h2>
+    <p>
+      This policy may be updated when the publisher, domain, providers, advertising, analytics,
+      consent, contact method, retention, legal requirements, or data flow changes. Genuine update
+      dates will be used.
+    </p>
+  </article>
+</BaseLayout>

@@ -1,0 +1,18 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Breadcrumbs from '@/components/Breadcrumbs.astro';
+import AdSlot from '@/components/AdSlot.astro';
+import FaqList from '@/components/FaqList.astro';
+import { buildGuidesHubSchema } from '@/lib/schema';
+const guides = (await getCollection('guides')).sort((a,b) => a.data.order - b.data.order);
+const description = 'Find guides for camera and microphone permissions, webcam and microphone problems, interview preparation, and browser-based device testing.';
+const jsonLd = buildGuidesHubSchema(description, guides.map((guide) => ({ title: guide.data.title, path: `/guides/${guide.id}/` })));
+---
+<BaseLayout title="Device Testing and Troubleshooting Guides" description={description} canonicalPath="/guides/" jsonLd={jsonLd}>
+  <Breadcrumbs items={[{ label: 'Guides' }]} />
+  <section class="section-sm content-container"><p class="eyebrow">Troubleshooting and preparation</p><h1>Device Testing Guides</h1><p class="lead">Choose a problem-focused guide, run the related browser test before changing settings, and compare the result after each fix.</p><div class="card-grid">{guides.map((guide) => <article class="tool-card"><span class="eyebrow">{guide.data.category}</span><h2 style="font-size: 1.375rem; margin-top: .75rem;"><a href={`/guides/${guide.id}/`}>{guide.data.title}</a></h2><p>{guide.data.description}</p><a class="btn btn-secondary" href={`/guides/${guide.id}/`}>Read guide</a></article>)}</div></section>
+  <section class="section-alt"><div class="article-container prose"><h2>Start with the right guide</h2><p>Open the permissions guide when access is blocked or no prompt appears. Open the webcam or microphone guide when permission is allowed but the device remains missing, silent, black, frozen, blurry, noisy, or incorrectly selected. Use the interview guide for a full pre-event checklist.</p><h2>Input and display help</h2><p>There are no empty coming-soon categories. Use the published interactive <a href="/keyboard-test/">Keyboard Test</a>, <a href="/mouse-test/">Mouse Test</a>, <a href="/touchscreen-test/">Touchscreen Test</a>, and <a href="/dead-pixel-test/">Dead Pixel Test</a> to identify behavior first.</p></div></section>
+  <AdSlot placement="guides-hub-after-categories" />
+  <section class="section"><div class="article-container prose"><h2>Frequently asked questions</h2><FaqList faqs={[{ question: 'Which guide should I open first?', answer: 'Open the permissions guide when access is blocked or no prompt appears. Open the webcam or microphone guide when access is allowed but the device remains missing, silent, black, frozen, blurry, noisy, or incorrectly selected.' },{ question: 'Should I run the test before changing settings?', answer: 'Yes. An initial test records the current symptom in your own session and helps you compare the result after each change.' },{ question: 'Why are there no empty categories?', answer: 'The hub displays only complete published content. New categories should appear only when useful pages are live.' }]} /></div></section>
+</BaseLayout>

@@ -1,0 +1,30 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Breadcrumbs from '@/components/Breadcrumbs.astro';
+import { siteConfig } from '@/config/site';
+---
+
+<BaseLayout
+  title="Message Sent"
+  description={`Your message to ${siteConfig.name} was submitted.`}
+  canonicalPath="/contact/thanks/"
+  noindex
+>
+  <Breadcrumbs items={[{ label: 'Contact', href: '/contact/' }, { label: 'Message sent' }]} />
+  <section class="section article-container prose">
+    <p class="eyebrow">Contact</p>
+    <h1>Your message was sent</h1>
+    <p class="lead">
+      Thank you. Your message was submitted through FormSubmit. We aim to review messages within
+      {siteConfig.responseTime}.
+    </p>
+    <p>
+      The first submission after setup may trigger an activation email for the site owner. If the
+      form has not yet been activated, the message will be delivered after that confirmation is completed.
+    </p>
+    <div class="button-row">
+      <a class="btn btn-primary" href="/">Return Home</a>
+      <a class="btn btn-secondary" href="/contact/">Send Another Message</a>
+    </div>
+  </section>
+</BaseLayout>

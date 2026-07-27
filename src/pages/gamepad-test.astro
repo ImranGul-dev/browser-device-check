@@ -1,0 +1,35 @@
+---
+import ToolPageLayout from '@/layouts/ToolPageLayout.astro';
+import GamepadTest from '@/components/tools/GamepadTest';
+---
+<ToolPageLayout
+  title="Gamepad Controller Test"
+  seoTitle="Gamepad Controller Test - Check Buttons, Sticks and Axes"
+  description="Test gamepad and controller buttons, sticks, triggers, axes, mapping, and optional vibration support directly in your browser."
+  path="/gamepad-test/"
+  intro="Connect a gamepad or controller and check which buttons and axes reach the browser. Review live values, possible stick drift, mapping, and optional haptic support."
+  privacy="Controller identifiers and input values stay in this browser session and are not uploaded or stored by this tool."
+  instructions={["Connect the controller by USB, Bluetooth, or its supported receiver.","Select Start Controller Test.","Press a controller button or move a stick so the browser can expose it.","Choose the intended controller when more than one appears.","Press buttons, triggers, the D-pad, and move each stick through its range.","Review button values, axis values, mapping, and optional vibration behavior, then stop the test."]}
+  interpretations={[
+    { title: 'Controller connected', body: 'The browser exposed a Gamepad object for the device. This does not guarantee identical behavior in every game or application.' },
+    { title: 'Button value received', body: 'Digital buttons commonly show zero or one, while analog triggers may show values between zero and one.' },
+    { title: 'Axis movement received', body: 'Stick and similar axes commonly report values from minus one to one. Small non-zero resting values can indicate normal tolerance or possible drift.' },
+    { title: 'Standard mapping', body: 'A standard mapping means the browser recognized a common layout. Unmapped controllers can use different button and axis numbers.' },
+  ]}
+  troubleshooting={[
+    { title: 'The controller does not appear', body: 'Press a button after starting, keep the page focused, reconnect the cable or Bluetooth connection, charge the controller, and try a current browser.' },
+    { title: 'Buttons use unexpected numbers', body: 'The controller may not expose a standard mapping. Compare each physical control with the live numbered values.' },
+    { title: 'A stick moves while untouched', body: 'Place the controller on a stable surface, compare the resting axis value, reconnect it, calibrate through the operating system when available, and test another application.' },
+    { title: 'Vibration is unavailable', body: 'Haptic support depends on the controller, connection, operating system, browser, and driver. A controller can work normally without exposing vibration to webpages.' },
+  ]}
+  limitations={["Gamepad support and mappings vary across controllers, browsers, operating systems, drivers, and connection modes.","The browser may expose a controller only after a button or axis interaction while the page is visible.","Small axis values near zero are not automatically proof of defective stick drift.","Haptic feedback is optional and inconsistently supported.","The test cannot update firmware, calibrate hardware, measure wireless latency precisely, or guarantee behavior in a game."]}
+  faqs={[
+    { question: 'Why must I press a button before the controller appears?', answer: 'Some browsers reveal gamepads only after user interaction to reduce passive device identification.' },
+    { question: 'Can the test detect stick drift?', answer: 'It can show non-zero resting axis values, but you must compare repeated observations and other applications before deciding the controller has a fault.' },
+    { question: 'Why are my button numbers different?', answer: 'Controllers without the browser’s standard mapping can expose manufacturer-specific numbering.' },
+    { question: 'Does the site save my controller information?', answer: 'No. The provided tool processes controller values only in the current browser session.' },
+  ]}
+  related={[{ title: 'Test your keyboard', href: '/keyboard-test/' },{ title: 'Test your mouse', href: '/mouse-test/' },{ title: 'Check browser information', href: '/browser-info/' }]}
+>
+  <GamepadTest client:load slot="tool" />
+</ToolPageLayout>
